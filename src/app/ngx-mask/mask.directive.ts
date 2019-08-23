@@ -213,9 +213,15 @@ export class MaskDirective implements ControlValueAccessor, OnChanges {
             ? this._inputValue.length + position + caretShift
             : position + (this._code === 'Backspace' && !backspaceShift ? 0 : caretShift);
 
-        el.setSelectionRange(positionToApply, positionToApply);
+            el.setSelectionRange(positionToApply, positionToApply);
 
         this._position = null;
+    }
+
+    @HostListener('focus', ['$event'])
+    public onFocus(e: FocusEvent): void {
+        const el: HTMLInputElement = e.target as HTMLInputElement;
+        el.setSelectionRange(0, 0);
     }
 
     @HostListener('blur')
@@ -225,10 +231,10 @@ export class MaskDirective implements ControlValueAccessor, OnChanges {
     }
 
     @HostListener('click', ['$event'])
-    public onFocus(e: MouseEvent | CustomKeyboardEvent): void {
+    public oncLICK(e: MouseEvent | CustomKeyboardEvent): void {
         const el: HTMLInputElement = e.target as HTMLInputElement;
-        const posStart: number = 0;
-        const posEnd: number = 0;
+        // const posStart: number = 0;
+        // const posEnd: number = 0;
         if (
             el !== null &&
             el.selectionStart !== null &&
@@ -244,10 +250,10 @@ export class MaskDirective implements ControlValueAccessor, OnChanges {
                 this._maskService.maskIsShown = this._maskService.showMaskInInput();
                 if (el.setSelectionRange && this._maskService.prefix + this._maskService.maskIsShown === el.value) {
                     el.focus();
-                    el.setSelectionRange(posStart, posEnd);
+                    // el.setSelectionRange(0, 0);
                 } else if (el.setSelectionRange && this._maskService.maskIsShown !== el.value) {
                     el.focus();
-                    el.setSelectionRange(posStart, posEnd);
+                    // el.setSelectionRange(0, 0);
                 }
             }
         const nextValue: string | null =

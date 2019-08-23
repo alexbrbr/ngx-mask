@@ -362,11 +362,12 @@
                                         <input
                                             matInput
                                             placeholder="Phone number"
-                                            mask="(000) 000-0000"
+                                            mask="0 00 00 00 00"
+                                            autofocus
                                             [formControl]="form1"
-                                            prefix="+5"
                                             [(ngModel)]="showMaskModel"
                                             [showMaskTyped]="true"
+                                            autofocus
                                         />
                                         <mat-hint><b>Mask: </b>+5 (000) 000 0000</mat-hint>
                                     </mat-form-field>
